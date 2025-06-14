@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dani Salgados - Cardápio 3D</title>
+    <title>Dani Salgados // DATASTREAM v3.0</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,184 +11,174 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Lilita+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <style>
-        /* Estilos customizados */
+        :root {
+            --dark-bg: #03040B;
+            --neon-cyan: #00f6ff;
+            --neon-magenta: #ff00c1;
+            --glow-cyan: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+            --glow-magenta: 0 0 5px var(--neon-magenta), 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta);
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #1a1a1a; /* Fundo escuro para destacar os elementos */
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--dark-bg);
+            color: #E0E0E0;
+            overflow-x: hidden;
         }
-        .lilita-one {
-            font-family: 'Lilita One', cursive;
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.1em;
         }
-        .text-glow {
-            text-shadow: 0 0 8px rgba(250, 204, 21, 0.8), 0 0 20px rgba(250, 204, 21, 0.6);
-        }
+
         #hero-canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 1;
         }
-        .card-item {
-            background-color: rgba(41, 37, 36, 0.8);
+        
+        .main-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .glitch-text {
+            position: relative;
+            text-shadow: var(--glow-cyan);
+        }
+
+        .glass-card {
+            background: rgba(10, 25, 47, 0.3);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(250, 204, 21, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 246, 255, 0.2);
+            transition: all 0.3s ease;
         }
-        .card-item:hover {
+        .glass-card:hover {
+            border-color: rgba(0, 246, 255, 0.8);
+            box-shadow: 0 0 20px rgba(0, 246, 255, 0.3);
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(250, 204, 21, 0.2);
         }
+        .neon-border-bottom {
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 5px 15px -5px var(--neon-cyan);
+        }
+
         .btn-whatsapp {
-            background-color: #25D366;
-            transition: transform 0.2s;
+            background-color: var(--neon-cyan);
+            color: var(--dark-bg);
+            box-shadow: var(--glow-cyan);
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
         }
         .btn-whatsapp:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 8px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
         }
+
     </style>
 </head>
-<body class="text-white">
+<body class="overflow-x-hidden">
 
-    <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-blur-md">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-3xl font-bold lilita-one text-yellow-400 text-glow">DANI SALGADOS</h1>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#combos" class="hover:text-yellow-400 transition">Combos</a>
-                <a href="#sabores" class="hover:text-yellow-400 transition">Sabores</a>
-                <a href="#especiais" class="hover:text-yellow-400 transition">Especiais</a>
-                <a href="#contato" class="hover:text-yellow-400 transition">Contato</a>
-            </nav>
-            <button id="menu-btn" class="md:hidden focus:outline-none z-50">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden">
-            <a href="#combos" class="block py-2 px-4 text-sm hover:bg-yellow-400 hover:text-black">Combos</a>
-            <a href="#sabores" class="block py-2 px-4 text-sm hover:bg-yellow-400 hover:text-black">Sabores</a>
-            <a href="#especiais" class="block py-2 px-4 text-sm hover:bg-yellow-400 hover:text-black">Especiais</a>
-            <a href="#contato" class="block py-2 px-4 text-sm hover:bg-yellow-400 hover:text-black">Contato</a>
-        </div>
-    </header>
+    <canvas id="hero-canvas"></canvas>
 
-    <!-- Hero Section -->
-    <section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
-        <canvas id="hero-canvas"></canvas>
-        <div class="relative z-10 p-4">
-            <h2 class="text-5xl md:text-7xl lg:text-8xl font-black lilita-one text-white uppercase text-glow">Os Melhores</h2>
-            <h1 class="text-6xl md:text-8xl lg:text-9xl font-black lilita-one text-yellow-400 uppercase text-glow mb-4">Salgadinhos!</h1>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto text-gray-300">Feitos com carinho para a sua festa ser um sucesso. Qualidade e sabor que você pode confiar.</p>
-        </div>
-    </section>
+    <div class="main-content">
+        <!-- Header -->
+        <header class="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-sm">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center border-b border-cyan-500/20">
+                <h1 class="text-2xl orbitron text-white" style="text-shadow: var(--glow-cyan);">DANI_SALGADOS</h1>
+                <nav class="hidden md:flex space-x-8 text-lg">
+                    <a href="#combos" class="hover:text-cyan-300" style="text-shadow: 0 0 5px var(--neon-cyan);">[COMBOS]</a>
+                    <a href="#sabores" class="hover:text-cyan-300" style="text-shadow: 0 0 5px var(--neon-cyan);">[SABORES]</a>
+                    <a href="#contato" class="hover:text-cyan-300" style="text-shadow: 0 0 5px var(--neon-cyan);">[CONTATO]</a>
+                </nav>
+                 <button id="menu-btn" class="md:hidden focus:outline-none z-50 text-cyan-300 text-2xl">
+                    &#9776; <!-- Hamburger Icon -->
+                </button>
+            </div>
+             <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-black/80">
+                <a href="#combos" class="block py-3 px-6 hover:bg-cyan-900">[COMBOS]</a>
+                <a href="#sabores" class="block py-3 px-6 hover:bg-cyan-900">[SABORES]</a>
+                <a href="#contato" class="block py-3 px-6 hover:bg-cyan-900">[CONTATO]</a>
+            </div>
+        </header>
 
-    <!-- Menu Section -->
-    <main class="container mx-auto px-6 py-20 relative z-10">
-        
-        <!-- Combos Section -->
-        <section id="combos" class="mb-20">
-            <h2 class="text-4xl md:text-5xl lilita-one text-yellow-400 text-center mb-12 text-glow">Nossos Combos</h2>
+        <!-- Hero Section -->
+        <section class="h-screen flex items-center justify-center text-center">
+            <div class="p-4">
+                <h2 class="text-6xl md:text-8xl lg:text-9xl orbitron font-black uppercase glitch-text text-white">Sabor</h2>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl orbitron font-bold uppercase" style="color: var(--neon-magenta); text-shadow: var(--glow-magenta);">do Futuro</h1>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto mt-4 text-gray-400">
+                    // Protocolo de Festa Ativado: Qualidade e Sabor em cada byte.
+                </p>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <main class="container mx-auto px-6 py-20" id="combos">
+            
+            <h2 class="text-4xl md:text-5xl orbitron text-center mb-12 neon-border-bottom pb-4">CATÁLOGO DE COMBOS</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Combo Clássico -->
-                <div class="card-item rounded-lg p-6 text-center">
-                    <h3 class="text-2xl font-bold lilita-one text-yellow-400 mb-2">COMBO CLÁSSICO</h3>
-                    <p class="text-gray-300 mb-4">(20 de cada) coxinha, queijo, carne, salsicha e pastéis.</p>
+                <div class="glass-card p-6 text-center">
+                    <h3 class="text-2xl font-bold orbitron text-cyan-300 mb-2">COMBO: CLÁSSICO</h3>
+                    <p class="text-gray-400 mb-4 h-24">// Unidades: 20x | Itens: coxinha, queijo, carne, salsicha, pastéis.</p>
                     <div class="text-4xl font-bold text-white">R$40,00</div>
                 </div>
-                <!-- Combo Especial -->
-                <div class="card-item rounded-lg p-6 text-center">
-                    <h3 class="text-2xl font-bold lilita-one text-yellow-400 mb-2">COMBO ESPECIAL</h3>
-                    <p class="text-gray-300 mb-4">(20 de cada) coxinha, empadinha, canudinho, pastéis e bolinha de queijo.</p>
+                <div class="glass-card p-6 text-center">
+                    <h3 class="text-2xl font-bold orbitron text-cyan-300 mb-2">COMBO: ESPECIAL</h3>
+                    <p class="text-gray-400 mb-4 h-24">// Unidades: 20x | Itens: coxinha, empadinha, canudinho, pastéis, bolinha de queijo.</p>
                     <div class="text-4xl font-bold text-white">R$45,00</div>
                 </div>
-                <!-- Combo Top -->
-                <div class="card-item rounded-lg p-6 text-center">
-                    <h3 class="text-2xl font-bold lilita-one text-yellow-400 mb-2">COMBO TOP</h3>
-                    <p class="text-gray-300 mb-4">(25 de cada) coxinha, bolinha de queijo, empadinha e canudinho.</p>
+                <div class="glass-card p-6 text-center">
+                    <h3 class="text-2xl font-bold orbitron text-cyan-300 mb-2">COMBO: TOP</h3>
+                    <p class="text-gray-400 mb-4 h-24">// Unidades: 25x | Itens: coxinha, bolinha de queijo, empadinha, canudinho.</p>
                     <div class="text-4xl font-bold text-white">R$55,00</div>
                 </div>
-                <!-- Combo Empadinha+Canudinho -->
-                <div class="card-item rounded-lg p-6 text-center">
-                    <h3 class="text-2xl font-bold lilita-one text-yellow-400 mb-2">EMPADA+CANUDINHO</h3>
-                    <p class="text-gray-300 mb-4">(50 de cada) Empadinha de frango e Canudinho de frango.</p>
+                <div class="glass-card p-6 text-center">
+                    <h3 class="text-2xl font-bold orbitron text-cyan-300 mb-2">COMBO: DUPLA</h3>
+                    <p class="text-gray-400 mb-4 h-24">// Unidades: 50x | Itens: Empadinha de frango, Canudinho de frango.</p>
                     <div class="text-4xl font-bold text-white">R$70,00</div>
                 </div>
             </div>
-        </section>
-
+        </main>
+        
         <!-- Sabores Individuais Section -->
-        <section id="sabores" class="mb-20">
-            <h2 class="text-4xl md:text-5xl lilita-one text-yellow-400 text-center mb-12 text-glow">Sabores (O Cento)</h2>
-            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="card-item rounded-lg p-6 flex justify-between items-center">
-                    <h3 class="text-xl font-semibold">Coxinha de Frango</h3>
-                    <div class="text-2xl font-bold text-yellow-400">R$40,00</div>
-                </div>
-                <div class="card-item rounded-lg p-6 flex justify-between items-center">
-                    <h3 class="text-xl font-semibold">Bolinha de Queijo</h3>
-                    <div class="text-2xl font-bold text-yellow-400">R$40,00</div>
-                </div>
-                <div class="card-item rounded-lg p-6 flex justify-between items-center">
-                    <h3 class="text-xl font-semibold">Enroladinho de Salsicha</h3>
-                    <div class="text-2xl font-bold text-yellow-400">R$40,00</div>
-                </div>
-                 <div class="card-item rounded-lg p-6 flex justify-between items-center">
-                    <h3 class="text-xl font-semibold">Risole de Carne</h3>
-                    <div class="text-2xl font-bold text-yellow-400">R$40,00</div>
-                </div>
-                <div class="card-item rounded-lg p-6 flex justify-between items-center">
-                    <h3 class="text-xl font-semibold">Pastéis (vários sabores)</h3>
-                    <div class="text-2xl font-bold text-yellow-400">R$40,00</div>
+        <section id="sabores" class="py-20 bg-black/20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl orbitron text-center mb-12 neon-border-bottom pb-4">UNIDADES DE SABOR (100x)</h2>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 text-xl">
+                    <div class="flex justify-between items-center border-b border-cyan-500/10 py-3"><span>> Coxinha de Frango</span><span class="font-bold text-cyan-300">R$40,00</span></div>
+                    <div class="flex justify-between items-center border-b border-cyan-500/10 py-3"><span>> Bolinha de Queijo</span><span class="font-bold text-cyan-300">R$40,00</span></div>
+                    <div class="flex justify-between items-center border-b border-cyan-500/10 py-3"><span>> Enroladinho de Salsicha</span><span class="font-bold text-cyan-300">R$40,00</span></div>
+                    <div class="flex justify-between items-center border-b border-cyan-500/10 py-3"><span>> Risole de Carne</span><span class="font-bold text-cyan-300">R$40,00</span></div>
+                    <div class="flex justify-between items-center border-b border-cyan-500/10 py-3"><span>> Pastéis (vários sabores)</span><span class="font-bold text-cyan-300">R$40,00</span></div>
+                    <div class="flex justify-between items-center border-b border-cyan-500/10 py-3"><span>> Mini Empadinha (frango)</span><span class="font-bold text-cyan-300">R$70,00</span></div>
+                    <div class="flex justify-between items-center border-b border-cyan-500/10 py-3"><span>> Mini Canudinho (frango)</span><span class="font-bold text-cyan-300">R$70,00</span></div>
+                    <div class="flex justify-between items-center border-b border-cyan-500/10 py-3"><span>> Mini Pizza</span><span class="font-bold text-cyan-300">R$100,00</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- Especiais Section -->
-        <section id="especiais" class="mb-20">
-             <h2 class="text-4xl md:text-5xl lilita-one text-yellow-400 text-center mb-12 text-glow">Temos Também</h2>
-             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="card-item rounded-lg p-6 text-center">
-                    <h3 class="text-xl font-bold lilita-one text-yellow-400 mb-2">100 Mini Empadinhas</h3>
-                    <p class="text-gray-300 mb-4">Sabor frango</p>
-                    <div class="text-3xl font-bold text-white">R$70,00</div>
-                </div>
-                <div class="card-item rounded-lg p-6 text-center">
-                    <h3 class="text-xl font-bold lilita-one text-yellow-400 mb-2">100 Mini Canudinhos</h3>
-                    <p class="text-gray-300 mb-4">Sabor frango</p>
-                    <div class="text-3xl font-bold text-white">R$70,00</div>
-                </div>
-                <div class="card-item rounded-lg p-6 text-center">
-                    <h3 class="text-xl font-bold lilita-one text-yellow-400 mb-2">100 Mini Pizzas</h3>
-                    <p class="text-gray-300 mb-4">Sabores variados</p>
-                    <div class="text-3xl font-bold text-white">R$100,00</div>
+        <!-- Contact Footer -->
+        <footer id="contato" class="py-12 mt-20 text-center">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl orbitron mb-4 text-cyan-300">INICIAR CONTATO</h2>
+                <p class="text-gray-400 mb-8">// Envie a sua ordem de pedido via WhatsApp.</p>
+                <a href="https://wa.me/5585986234548" target="_blank" class="inline-block btn-whatsapp font-bold py-4 px-8 rounded-md text-lg shadow-lg">
+                    ENVIAR TRANSMISSÃO
+                </a>
+                <div class="mt-12 text-gray-600 text-sm">
+                    &copy; 2025 DANI SALGADOS // SISTEMA OPERACIONAL v1.0
                 </div>
             </div>
-        </section>
-
-    </main>
-    
-    <!-- Contact Footer -->
-    <footer id="contato" class="bg-black bg-opacity-70 py-12">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl lilita-one text-white mb-4">Faça seu pedido agora!</h2>
-            <p class="text-gray-300 mb-8">Entre em contato pelo WhatsApp e garanta os melhores salgados para sua festa.</p>
-            <a href="https://wa.me/5585986234548" target="_blank" class="inline-block btn-whatsapp text-white font-bold py-4 px-8 rounded-full text-lg">
-                <div class="flex items-center">
-                    <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.61 15.35 3.48 16.81L2 22L7.33 20.59C8.75 21.37 10.36 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 9.27 20.92 6.83 19.11 4.99C17.3 3.14 14.89 2 12.04 2ZM9.89 16.8C9.72 16.8 8.53 16.45 7.43 15.42C6.24 14.28 5.56 12.91 5.42 12.73C5.27 12.56 4.36 11.12 4.36 9.87C4.36 8.62 5.27 7.75 5.5 7.53C5.74 7.31 6.13 7.22 6.42 7.22C6.56 7.22 6.69 7.22 6.8 7.22C7.04 7.22 7.23 7.25 7.4 7.74C7.59 8.23 8.16 9.68 8.24 9.83C8.32 9.98 8.38 10.16 8.24 10.35C8.11 10.54 8.01 10.65 7.85 10.84C7.7 11.01 7.57 11.16 7.45 11.28C7.33 11.41 7.2 11.55 7.34 11.8C7.48 12.05 8.07 12.94 8.86 13.67C9.89 14.61 10.82 14.94 11.06 15.06C11.3 15.18 11.49 15.15 11.66 14.96C11.86 14.74 12.18 14.24 12.45 13.9C12.71 13.56 13.04 13.44 13.38 13.44C13.73 13.44 15.11 14.16 15.39 14.43C15.67 14.71 15.82 14.9 15.86 15.06C15.91 15.21 15.91 16.15 15.39 16.71C14.88 17.27 13.95 17.21 13.26 17.21C12.57 17.21 10.06 16.97 9.89 16.8Z"/></svg>
-                    <span>(85) 98623-4548</span>
-                </div>
-            </a>
-            <div class="mt-8 text-gray-500">
-                &copy; 2024 Dani Salgados. Todos os direitos reservados.
-            </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -200,110 +190,69 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Fecha o menu mobile ao clicar em um link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Animação 3D com Three.js
-        
-        // Configuração da cena
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        // Animação 3D de fundo
         const canvas = document.getElementById('hero-canvas');
-        
         if (canvas) {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            
             renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            camera.position.z = 200;
 
-            // Luzes
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-            scene.add(ambientLight);
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight.position.set(5, 10, 7.5);
-            scene.add(directionalLight);
+            const particlesGeometry = new THREE.BufferGeometry;
+            const count = 5000;
+
+            const positions = new Float32Array(count * 3);
+            for(let i = 0; i < count * 3; i++) {
+                positions[i] = (Math.random() - 0.5) * 1000;
+            }
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             
-            camera.position.z = 5;
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.2,
+                sizeAttenuation: true,
+                color: '#00f6ff'
+            });
+
+            const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particles);
+
+            // Mouse tracking
+            const mouse = new THREE.Vector2();
+            window.addEventListener('mousemove', (event) => {
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            });
             
-            // Materiais dos Salgados
-            const coxinhaMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500, roughness: 0.6, metalness: 0.2 });
-            const queijoMaterial = new THREE.MeshStandardMaterial({ color: 0xfff48d, roughness: 0.5, metalness: 0.1 });
+            const clock = new THREE.Clock();
+            const animate = () => {
+                const elapsedTime = clock.getElapsedTime();
+                
+                // Animar partículas
+                particles.rotation.y = elapsedTime * 0.05;
 
-            const salgados = [];
-
-            // Função para criar uma Coxinha
-            function createCoxinha() {
-                const group = new THREE.Group();
-                const coneGeometry = new THREE.ConeGeometry(0.3, 0.7, 32);
-                const cone = new THREE.Mesh(coneGeometry, coxinhaMaterial);
-                cone.rotation.x = Math.PI;
-                cone.position.y = -0.35;
-                group.add(cone);
-                return group;
-            }
-
-            // Função para criar uma Bolinha de Queijo
-            function createBolinhaQueijo() {
-                const geometry = new THREE.SphereGeometry(0.3, 32, 32);
-                return new THREE.Mesh(geometry, queijoMaterial);
-            }
-
-            // Criar e posicionar vários salgados
-            for (let i = 0; i < 40; i++) {
-                let salgado;
-                if(Math.random() > 0.5) {
-                    salgado = createCoxinha();
-                } else {
-                    salgado = createBolinhaQueijo();
-                }
-
-                salgado.position.x = (Math.random() - 0.5) * 15;
-                salgado.position.y = (Math.random() - 0.5) * 10;
-                salgado.position.z = (Math.random() - 0.5) * 8;
-
-                salgado.rotation.x = Math.random() * 2 * Math.PI;
-                salgado.rotation.y = Math.random() * 2 * Math.PI;
-
-                const scale = Math.random() * 0.5 + 0.5;
-                salgado.scale.set(scale, scale, scale);
-
-                salgados.push(salgado);
-                scene.add(salgado);
-            }
-
-            // Animação
-            const animate = function () {
-                requestAnimationFrame(animate);
-
-                salgados.forEach(salgado => {
-                    salgado.rotation.x += 0.005;
-                    salgado.rotation.y += 0.005;
-                    
-                    // Movimento suave
-                    salgado.position.y += 0.01;
-                    if(salgado.position.y > 6) {
-                        salgado.position.y = -6;
-                        salgado.position.x = (Math.random() - 0.5) * 15;
-                    }
-                });
+                // Fazer a câmera seguir o rato
+                camera.position.x += (mouse.x * 20 - camera.position.x) * 0.05;
+                camera.position.y += (mouse.y * 20 - camera.position.y) * 0.05;
+                camera.lookAt(scene.position);
 
                 renderer.render(scene, camera);
+                window.requestAnimationFrame(animate);
             };
-
-            // Lidar com redimensionamento da janela
+            
             window.addEventListener('resize', () => {
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
-            }, false);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            });
 
             animate();
-        } else {
-            console.error('Elemento canvas não encontrado!');
         }
     </script>
 </body>
 </html>
+
 
